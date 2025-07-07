@@ -9,7 +9,8 @@ import Foundation
 import CoreLocation
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    @Published var coordinate: CLLocationCoordinate2D?
+    
+    @Published var coordinates: CLLocationCoordinate2D?
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
 
@@ -27,9 +28,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        if let latestLocation = locations.first {
+        if let newLocation = locations.first {
             
-            self.coordinate = latestLocation.coordinate
+            self.coordinates = newLocation.coordinate
             
         }
         

@@ -10,14 +10,14 @@ import Combine
 import CoreLocation
 
 class WeatherViewModel: ObservableObject {
-    // Published properties for UI binding
+    
+    // use @Published properties for UI binding
+    @Published var isLoading = true
     @Published var cityName: String = ""
-    @Published var currentDateTime: String = ""
     @Published var temperature: Double = 0.0
     @Published var feelsLike: Double = 0.0
     @Published var tempMin: Double = 0.0
     @Published var tempMax: Double = 0.0
-    @Published var weatherDescription: String = ""
     @Published var forecast: [DailyForecast] = []
     @Published var weatherID: Int?
     @Published var weatherMain: String?
@@ -28,24 +28,13 @@ class WeatherViewModel: ObservableObject {
     init() {
         // Observe changes in location
         // Observe location updates
-        locationManager.$coordinate
+        locationManager.$coordinates
             .compactMap { $0 } // Proceed only when not nil
             .sink { [weak self] coordinate in
                 self?.fetchData(lat: coordinate.latitude, lon: coordinate.longitude)
             }
             .store(in: &cancellables)
 
-        // Update current date/time every minute
-        Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
-            self?.updateDateTime()
-        }
-        updateDateTime() // Initial call
-    }
-
-    private func updateDateTime() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
-        currentDateTime = formatter.string(from: Date())
     }
     
     private func fetchData(lat: Double, lon: Double) {
@@ -61,7 +50,6 @@ class WeatherViewModel: ObservableObject {
             self.feelsLike = response.main.feels_like
             self.tempMin = response.main.temp_min
             self.tempMax = response.main.temp_max
-            self.weatherDescription = response.weather.first?.description.capitalized ?? ""
             self.weatherID = response.weather.first?.id
             self.weatherMain = response.weather.first?.main ?? ""
         }
@@ -71,6 +59,7 @@ class WeatherViewModel: ObservableObject {
         NetworkManager.shared.fetchForecast(lat: lat, lon: lon) { [weak self] forecastResponse in
             guard let self = self, let response = forecastResponse else { return }
             self.forecast = Array(response.daily.prefix(7)) // Show next 7 days
+            self.isLoading = false
         }
     }
 }

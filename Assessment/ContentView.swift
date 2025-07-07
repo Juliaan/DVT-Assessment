@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject private var viewModel = WeatherViewModel()
+    @ObservedObject private var viewModel = WeatherViewModel()
     
     var body: some View {
         

@@ -13,7 +13,7 @@ struct WeatherBackgroundMapper {
     
     static func backgroundImageName(for main: String?) -> String {
         
-        guard let main = main else { return "forest_sunny" }
+        guard let main = main else { return "" }
         
         print("Main out: \(main)")
         
@@ -27,7 +27,7 @@ struct WeatherBackgroundMapper {
         case "storm", "thunderstorm":
             return "forest_rainy"
         default:
-            return "forest_sunny"
+            return ""
         }
         
     }
@@ -35,8 +35,9 @@ struct WeatherBackgroundMapper {
 }
 
 struct WeatherBackgroundColor {
+    
     static func backgroundColour(for main: String?) -> Color {
-        guard let main = main else { return Color(red: 71/255, green: 171/255, blue: 47/255) }
+        guard let main = main else { return Color(.white) }
         switch main.lowercased() {
         case "rain":
             return Color(red: 87/255, green: 57/255, blue: 93/255)
@@ -47,7 +48,9 @@ struct WeatherBackgroundColor {
         case "storm", "thunderstorm":
             return Color(red: 87/255, green: 57/255, blue: 93/255)
         default:
-            return Color(red: 71/255, green: 171/255, blue: 47/255)
+            return Color(.white)
         }
+        
     }
+    
 }

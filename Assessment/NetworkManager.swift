@@ -13,8 +13,8 @@ class NetworkManager {
     private let apiKey = "87b595713dc97722bcfb83116209ed9a"
 
     func fetchWeather(lat: Double, lon: Double, completion: @escaping (WeatherResponse?) -> Void) {
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&units=metric&appid=\(apiKey)"
-        guard let url = URL(string: urlString) else { completion(nil); return }
+        let stringUrl = "https://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&units=metric&appid=\(apiKey)"
+        guard let url = URL(string: stringUrl) else { completion(nil); return }
 
         URLSession.shared.dataTask(with: url) { data, _, _ in
             if let data = data {
@@ -27,8 +27,8 @@ class NetworkManager {
     }
 
     func fetchForecast(lat: Double, lon: Double, completion: @escaping (OneCallResponse?) -> Void) {
-        let urlString = "https://api.openweathermap.org/data/3.0/onecall?lat=\(lat)&lon=\(lon)&exclude=minutely,hourly&units=metric&appid=\(apiKey)"
-        guard let url = URL(string: urlString) else { completion(nil); return }
+        let stringUrl = "https://api.openweathermap.org/data/3.0/onecall?lat=\(lat)&lon=\(lon)&exclude=minutely,hourly&units=metric&appid=\(apiKey)"
+        guard let url = URL(string: stringUrl) else { completion(nil); return }
 
         // https://api.openweathermap.org/data/3.0/onecall?lat=-34.035137772206035&lon=24.915311135378655&exclude=minutely,hourly&units=metric&appid=87b595713dc97722bcfb83116209ed9a
         
@@ -43,5 +43,7 @@ class NetworkManager {
                 DispatchQueue.main.async { completion(nil) }
             }
         }.resume()
+        
     }
+    
 }

@@ -13,8 +13,12 @@ struct MainView: View {
     
     var body: some View {
         
-        //ContentView()
-        LoadingView()
+        if viewModel.isLoading {
+            LoadingView()
+        } else {
+            ContentView()
+        }
+        
     }
     
 }
