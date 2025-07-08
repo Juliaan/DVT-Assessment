@@ -19,9 +19,13 @@ struct MainView: View {
             
             // check if we are loading
             if viewModel.isLoading {
+                
                 LoadingView()
+                
             } else {
+                
                 ContentView()
+                
             }
             
         } else {
