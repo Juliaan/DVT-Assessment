@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-// map id to get respective image based on condition, using forest_sunny as default or fallback image
+// map id to get respective image based on condition
 
 struct WeatherBackgroundMapper {
     
