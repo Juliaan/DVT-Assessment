@@ -67,6 +67,7 @@ class NetworkManager {
 
     func fetchForecast(lat: Double, lon: Double, completion: @escaping (OneCallResponse?) -> Void) {
         
+        // get api key from plist
         apiKey = getAPIKey()
         
         let stringUrl = "https://api.openweathermap.org/data/3.0/onecall?lat=\(lat)&lon=\(lon)&exclude=minutely,hourly&units=metric&appid=\(apiKey)"

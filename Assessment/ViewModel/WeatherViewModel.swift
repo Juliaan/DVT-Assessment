@@ -27,9 +27,10 @@ class WeatherViewModel: ObservableObject {
 
     init() {
         
-        /*  - Observe changes in location
+        /*  - Observe/listen for changes in location
             - Observe location updates
-            - ensure both lat and lon exists before we call
+            - ensure both lat and lon exists before we call and continue tto call api
+            - subscribe to changes in coordinates
         */
         locationManager.$coordinates
             .compactMap { $0 } // execute only when exist
@@ -39,7 +40,7 @@ class WeatherViewModel: ObservableObject {
                 self?.fetchData(lat: coordinate.latitude, lon: coordinate.longitude)
             }
             .store(in: &cancellables)
-
+        
     }
     
     private func fetchData(lat: Double, lon: Double) {

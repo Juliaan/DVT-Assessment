@@ -26,7 +26,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         
         startLocationUpdates()
         
-        
     }
 
     func startLocationUpdates() {
@@ -40,6 +39,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
+        // use best location
         if let newLocation = locations.first {
             
             self.coordinates = newLocation.coordinate
@@ -52,10 +52,15 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         
+        // check auth status
         if manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways {
+            
             locationPermissionEnabled = true
+            
         } else {
+            
             locationPermissionEnabled = false
+            
         }
         
     }

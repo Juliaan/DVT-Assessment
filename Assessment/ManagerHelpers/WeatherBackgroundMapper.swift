@@ -15,8 +15,6 @@ struct WeatherBackgroundMapper {
         
         guard let main = main else { return "" }
         
-        print("Main out: \(main)")
-        
         switch main.lowercased() {
         case "rain":
             return "forest_rainy"

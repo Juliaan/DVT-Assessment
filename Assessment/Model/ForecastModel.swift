@@ -7,6 +7,7 @@
 
 import Foundation
 
+// using codable structs to decode the response from openweather
 struct OneCallResponse: Codable {
     let current: CurrentWeather
     let daily: [DailyForecast]
