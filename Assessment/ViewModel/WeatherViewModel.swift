@@ -26,11 +26,16 @@ class WeatherViewModel: ObservableObject {
     private let locationManager = LocationManager()
 
     init() {
-        // Observe changes in location
-        // Observe location updates
+        
+        /*  - Observe changes in location
+            - Observe location updates
+            - ensure both lat and lon exists before we call
+        */
         locationManager.$coordinates
-            .compactMap { $0 } // Proceed only when not nil
+            .compactMap { $0 } // execute only when exist
             .sink { [weak self] coordinate in
+                
+                self?.locationManager.stopLocationUpdates()
                 self?.fetchData(lat: coordinate.latitude, lon: coordinate.longitude)
             }
             .store(in: &cancellables)

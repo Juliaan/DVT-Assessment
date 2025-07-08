@@ -37,13 +37,13 @@ struct ContentView: View {
                 }
             }
             .foregroundColor(.white)
-            //.edgesIgnoringSafeArea(.all)
-            //.padding()
-            
-            //Spacer()
             
             HStack {
 
+                /*
+                    - openweather api returns the same temp for min and max
+                 */
+                
                 Text("\(Int(viewModel.tempMin))°C")
                     .padding(.leading, 16)
                     .padding(.top, 8)

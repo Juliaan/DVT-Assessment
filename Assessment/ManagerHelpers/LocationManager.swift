@@ -10,6 +10,8 @@ import CoreLocation
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
+    @Published var locationPermissionEnabled = false
+    @Published var locationIsUpdating = false
     @Published var coordinates: CLLocationCoordinate2D?
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
@@ -21,9 +23,19 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         super.init()
         
         manager.delegate = self
+        
+        startLocationUpdates()
+        
+        
+    }
+
+    func startLocationUpdates() {
         manager.requestWhenInUseAuthorization()
         manager.startUpdatingLocation()
-        
+    }
+    
+    func stopLocationUpdates() {
+        manager.stopUpdatingLocation()
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -37,9 +49,19 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         manager.stopUpdatingLocation()
         
     }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        
+        if manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways {
+            locationPermissionEnabled = true
+        } else {
+            locationPermissionEnabled = false
+        }
+        
+    }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Handle error : \(error.localizedDescription)")
+        print("Error : \(error.localizedDescription)")
     }
     
 }

@@ -8,9 +8,23 @@
 import SwiftUI
 
 struct LoadingView: View {
+    
     var body: some View {
-        ProgressView()
+        
+        VStack {
+        
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle (tint: .white))
+            
+            Text("loading ...")
+            
+        }
+        .foregroundColor(.white)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(red: 0.106, green: 0.41, blue: 0.59))
+        
     }
+    
 }
 
 #Preview {

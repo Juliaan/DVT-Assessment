@@ -10,38 +10,103 @@ import Foundation
 class NetworkManager {
     
     static let shared = NetworkManager()
-    private let apiKey = "87b595713dc97722bcfb83116209ed9a"
+    private var apiKey = ""
 
+    func getAPIKey() -> String {
+        if let key = Bundle.main.object(forInfoDictionaryKey: "OpenWeatherAPIKey") as? String {
+            return key
+        }
+        return "" // or handle error appropriately
+    }
+    
     func fetchWeather(lat: Double, lon: Double, completion: @escaping (WeatherResponse?) -> Void) {
+        
+        apiKey = getAPIKey()
+        
         let stringUrl = "https://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&units=metric&appid=\(apiKey)"
         guard let url = URL(string: stringUrl) else { completion(nil); return }
 
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            if let data = data {
-                let decoded = try? JSONDecoder().decode(WeatherResponse.self, from: data)
-                DispatchQueue.main.async { completion(decoded) }
-            } else {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+                
+            // Check for error first
+            if let error = error {
+                print("Error fetching weather: \(error.localizedDescription)")
                 DispatchQueue.main.async { completion(nil) }
+                return
+            }
+                
+            // Check response to ensure we have a 200
+            if let httpResponse = response as? HTTPURLResponse {
+                
+                if httpResponse.statusCode == 200 {
+                    
+                    // Successful response, decode data
+                    if let data = data {
+                        let decoded = try? JSONDecoder().decode(WeatherResponse.self, from: data)
+                        DispatchQueue.main.async { completion(decoded) }
+                    } else {
+                        DispatchQueue.main.async { completion(nil) }
+                    }
+                    
+                } else {
+                    
+                    print("HTTP Error: Status code \(httpResponse.statusCode)")
+                    DispatchQueue.main.async { completion(nil) }
+                    
+                }
+                
+            } else {
+                
+                print("Invalid response")
+                DispatchQueue.main.async { completion(nil) }
+                
             }
         }.resume()
+        
     }
 
     func fetchForecast(lat: Double, lon: Double, completion: @escaping (OneCallResponse?) -> Void) {
+        
+        apiKey = getAPIKey()
+        
         let stringUrl = "https://api.openweathermap.org/data/3.0/onecall?lat=\(lat)&lon=\(lon)&exclude=minutely,hourly&units=metric&appid=\(apiKey)"
         guard let url = URL(string: stringUrl) else { completion(nil); return }
 
-        // https://api.openweathermap.org/data/3.0/onecall?lat=-34.035137772206035&lon=24.915311135378655&exclude=minutely,hourly&units=metric&appid=87b595713dc97722bcfb83116209ed9a
-        
-        //https://api.openweathermap.org/data/3.0/onecall?lat=-34.03523118838463&lon=24.91523394999758&exclude=current,minutely,hourly,alerts&units=metric&appid=87b595713dc97722bcfb83116209ed9a
-        
-        
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            if let data = data {
-                let decoded = try? JSONDecoder().decode(OneCallResponse.self, from: data)
-                DispatchQueue.main.async { completion(decoded) }
-            } else {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+                
+            // Check for errors first
+            if let error = error {
+                print("Error fetching forecast: \(error.localizedDescription)")
                 DispatchQueue.main.async { completion(nil) }
+                return
             }
+                
+            // Check response to ensure we have a 200
+            if let httpResponse = response as? HTTPURLResponse {
+                
+                if httpResponse.statusCode == 200 {
+                    
+                    if let data = data {
+                        let decoded = try? JSONDecoder().decode(OneCallResponse.self, from: data)
+                        DispatchQueue.main.async { completion(decoded) }
+                    } else {
+                        DispatchQueue.main.async { completion(nil) }
+                    }
+                    
+                } else {
+                    
+                    print("HTTP Error: Status code \(httpResponse.statusCode)")
+                    DispatchQueue.main.async { completion(nil) }
+                    
+                }
+                
+            } else {
+                
+                print("Invalid response")
+                DispatchQueue.main.async { completion(nil) }
+                
+            }
+            
         }.resume()
         
     }

@@ -10,9 +10,22 @@
 		3CEEA10E2E1AD46E00756944 /* Assessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3C5F4E412E1D488B003E5C87 /* Exceptions for "Assessment" folder in "Assessment" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 3CEEA10D2E1AD46E00756944 /* Assessment */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3CEEA1102E1AD46E00756944 /* Assessment */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3C5F4E412E1D488B003E5C87 /* Exceptions for "Assessment" folder in "Assessment" target */,
+			);
 			path = Assessment;
 			sourceTree = "<group>";
 		};
@@ -256,6 +269,7 @@
 				DEVELOPMENT_TEAM = 65A5K72TUF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Assessment/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We require your location info to give you Weather info for your area.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -266,6 +280,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OPENWEATHER_API_KEY = 87b595713dc97722bcfb83116209ed9a;
 				PRODUCT_BUNDLE_IDENTIFIER = com.juliaan.apps.Assessment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -284,6 +299,7 @@
 				DEVELOPMENT_TEAM = 65A5K72TUF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Assessment/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We require your location info to give you Weather info for your area.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -294,6 +310,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OPENWEATHER_API_KEY = 87b595713dc97722bcfb83116209ed9a;
 				PRODUCT_BUNDLE_IDENTIFIER = com.juliaan.apps.Assessment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
