@@ -38,7 +38,7 @@ struct WeatherBackgroundColor {
         guard let main = main else { return Color(.white) }
         switch main.lowercased() {
         case "rain":
-            return Color(red: 87/255, green: 57/255, blue: 93/255)
+            return Color(red: 87/255, green: 87/255, blue: 92/255)
         case "clouds":
             return Color(red: 84/255, green: 113/255, blue: 122/255)
         case "clear":
