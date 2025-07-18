@@ -44,7 +44,7 @@ struct WeatherBackgroundColor {
         case "clear":
             return Color(red: 71/255, green: 171/255, blue: 47/255)
         case "storm", "thunderstorm":
-            return Color(red: 87/255, green: 57/255, blue: 93/255)
+            return Color(red: 87/255, green: 87/255, blue: 92/255)
         default:
             return Color(.white)
         }
